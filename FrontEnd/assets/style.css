@@ -136,6 +136,8 @@ table {
 
 /** end reset css**/
 body {
+  display: flex;
+  flex-direction: column;
   max-width: 1140px;
   margin: auto;
   font-family: "Work Sans";
@@ -323,28 +325,7 @@ footer nav ul {
   color: #fffef8;
 }
 
-/* 
-.filterTous {
-	padding-left: 28px;
-	padding-right: 30px;
-}
-
-.filterObjets {
-	padding-left: 20px;
-	padding-right: 22px;
-}
-
-.filterAppartements {
-	padding-left: 14px;
-	padding-right: 15px;
-}
-
-.filterHoteletrestaurants {
-	padding-left: 9px;
-	padding-right: 11px;
-} */
-
-/* Style logIn */
+/****Page de connexion*******/
 
 #login-form {
   display: flex;
@@ -406,4 +387,39 @@ footer nav ul {
   width: 180px;
   text-align: center;
   border-radius: 60px;
+}
+
+/*mode édition*/
+
+#banner {
+  display: flex;
+  color: white;
+  background-color: black;
+  padding: 19.5px;
+  padding-bottom: 20.5px;
+}
+
+#banner div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-size: 16px;
+  gap: 11.42px;
+}
+
+#portfolioedit {
+  display: flex;
+  justify-content: center;
+  gap: 31px;
+}
+
+#edit {
+  display: flex;
+  font-size: 16px;
+  gap: 11.42px;
+  margin-top: 6px;
+}
+.groupedit {
+  display: flex;
+  gap: 15px;
 }

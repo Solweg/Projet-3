@@ -11,17 +11,6 @@
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap"
 		rel="stylesheet">
 	<meta name="description" content="">
-	
-
-	<!-- Favicon perso pour éviter erreur console-->
-	<link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-touch-icon.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="./favicon/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="./favicon/favicon-16x16.png">
-	<link rel="manifest" href="./favicon/favicon/site.webmanifest">
-	<link rel="mask-icon" href="./favicon/safari-pinned-tab.svg" color="#5bbad5">
-	<meta name="msapplication-TileColor" content="#da532c">
-	<meta name="theme-color" content="#ffffff">
-
 </head>
 <body>
     <header>
@@ -38,17 +27,16 @@
 	<section id="login-form">
 
 		<h2>Log In</h2>
-		<form method="post" action="http://localhost:5678/api-docs/"> <!-- trouver quoi mêttre ici pour communiquer avec l'api -->
+		<form method="post" action="http://localhost:5678/api/users/login"> 
 			
-			<label for="email">E-mail</E-mail></label>
+			<label for="email">E-mail</label>
 				<input type="email" name="email" id="email">
 			<label for="password">Mot de passe</label>
-				<input type="password" name="password" id="email">
-			<input type="button" value="Se connecter">	
+				<input type="password" name="password" id="password">
+			<input type="submit" value="Se connecter">	
 			<a href="#">Mot de passe oublié</a>
 		</form>
 		
-
 	</section>
     <footer>
 		<nav>
