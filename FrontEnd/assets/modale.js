@@ -1,4 +1,10 @@
 
+
+const button = document.getElementById("groupedit");
+const modal = document.getElementById("modale");
+const closemodal = document.getElementById("closemodal");
+const contentModal = document.getElementById("contenumodale");
+
 document.addEventListener("DOMContentLoaded", () => {
   const loginlogout = document.getElementById("loginlogout");
   const ContainerFilters = document.getElementById("ContainerFilters");
@@ -23,25 +29,20 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+button.addEventListener("click", () => {
+  modal.style.display = "flex";
+});
 
-// Obtient la référence des éléments
-const modal = document.getElementById("myModal");
-const modifier = document.getElementById("groupedit");
-const span = document.getElementsByClassName("close")[0];
-
-// Associe un gestionnaire d'événements pour ouvrir la modal lorsque le bouton est cliqué
-btn.onclick = function() {
-  modal.style.display = "block";
-}
-
-// Associe un gestionnaire d'événements pour fermer la modal lorsque l'utilisateur clique sur la croix
-span.onclick = function() {
+closemodal.addEventListener("click", () => {
   modal.style.display = "none";
-}
+});
 
-// Associe un gestionnaire d'événements pour fermer la modal lorsque l'utilisateur clique en dehors de celle-ci
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
+
+contentModal.addEventListener("click", (event) => {
+  event.stopPropagation();
+});
+
+modal.addEventListener("click", () => {
+  modal.style.display = "none";
+});
+
