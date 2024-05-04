@@ -411,15 +411,23 @@ footer nav ul {
   display: flex;
   justify-content: center;
   gap: 31px;
+  margin-bottom: 92px;
+  margin-top: 139px;
 }
 
-#edit {
+#portfolioedit button,
+#portfolioedit button div,
+#portfolioedit button div p {
+  background-color: #fffef8;
+  border: none;
+  cursor: pointer;
+  padding-bottom: 8px;
+}
+
+#groupedit div {
   display: flex;
   font-size: 16px;
   gap: 11.42px;
-  margin-top: 6px;
-}
-.groupedit {
-  display: flex;
   gap: 15px;
 }
+
