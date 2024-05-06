@@ -42,32 +42,22 @@ modal.addEventListener("click", () => {
   modal.style.display = "none";
 });
 
-// // TEST CHARGEMENT CATEGORIES
-// const worksUrl = "http://localhost:5678/api/works";
+// Insertion de la gallerie
 
-// async function callApi(url) {
-//   try {
-//     const response = await fetch(url);
-//     const works = await response.json();
-//     afficherElements(works);
-//     afficherCategories(works);
-//   } catch (error) {
-//     console.log("call api error: ", error);
-//   }
-// }
-// callApi(worksUrl);
+async function modalWorks() {
+  const response = await fetch("http://localhost:5678/api/works");
+  const works = await response.json();
+  const galleriemodale = document.getElementById("galleriemodale");
 
-// function afficherElements(elements) {
-//   const gallerymodal = document.querySelector(".gallerymodal");
-//   gallerymodal.innerHTML = "";
-//   elements.forEach((element) => {
-//     const figureElement = document.createElement("figure");
-//     const imageElement = document.createElement("img");
-//     imageElement.src = element.imageUrl;
-//     imageElement.alt = element.title;
-//     titleElement.innerText = element.title;
-//     figureElement.appendChild(imageElement);
-//     figureElement.appendChild(titleElement);
-//     gallerymodal.appendChild(figureElement);
-//   });
-// }
+  works.forEach((work) => {
+    const article = document.createElement("article");
+    article.setAttribute("data-work-id", work.id);
+    const img = document.createElement("img");
+    img.src = work.imageUrl;
+    article.appendChild(img);
+
+    galleriemodale.appendChild(article);
+  });
+}
+
+modalWorks();
