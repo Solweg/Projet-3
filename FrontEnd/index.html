@@ -36,9 +36,38 @@
 
         <button id="btn-photo">Ajouter une photo</button>
       </div>
-      <div id="contenumodale2">
-        <div id="ajoutphoto"></div>
-        <div id="aperçuphoto"></div>
+      <div id="contenuModale2">
+        <div id="ajoutphoto">
+          <form id="ajoutImageForm" enctype="multipart/form-data">
+            <div>
+              <label for="imageUpload">Choisir une image :</label>
+              <input
+                type="file"
+                id="imageUpload"
+                name="imageUpload"
+                accept="image/*"
+                required
+              />
+            </div>
+            <div>
+              <label for="nomProjet">Nom du projet :</label>
+              <input type="text" id="nomProjet" name="nomProjet" required />
+            </div>
+            <div>
+              <label for="categorie">Catégorie :</label>
+              <select id="categorie" name="categorie" required>
+                <option value="" disabled selected>
+                  Choisir une catégorie
+                </option>
+                <option value="categorie1">Catégorie 1</option>
+                <option value="categorie2">Catégorie 2</option>
+                <option value="categorie3">Catégorie 3</option>
+                <!-- Ajoutez ici d'autres options pour les catégories disponibles -->
+              </select>
+            </div>
+            <button type="submit">Ajouter</button>
+          </form>
+        </div>
       </div>
     </div>
 

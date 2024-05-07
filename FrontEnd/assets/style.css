@@ -445,7 +445,8 @@ footer nav ul {
   align-items: center;
 }
 
-#contenumodale1 {
+#contenumodale1,
+#contenuModale2 {
   background-color: white;
   border-radius: 10px;
   display: flex;
@@ -464,6 +465,15 @@ footer nav ul {
   font-size: 20px;
 }
 
+#contenuModale2 #closemodal {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row-reverse;
+  margin-top: 26px;
+  margin-right: 30px;
+  margin-left: 576px;
+  font-size: 20px;
+}
 #contenumodale1 h2 {
   font-family: "Work Sans", sans-serif;
   font-optical-sizing: auto;
