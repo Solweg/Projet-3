@@ -1,7 +1,7 @@
 const button = document.getElementById("groupedit");
 const modal = document.getElementById("modale");
 const closemodal = document.getElementById("closemodal");
-const contentModal = document.getElementById("contenumodale");
+const contentModal = document.getElementById("contenumodale1");
 
 document.addEventListener("DOMContentLoaded", () => {
   const loginlogout = document.getElementById("loginlogout");
@@ -56,8 +56,33 @@ async function modalWorks() {
     img.src = work.imageUrl;
     article.appendChild(img);
 
+    const trashIcon = createTrashIcon(work.id);
+    article.appendChild(trashIcon);
+
     galleriemodale.appendChild(article);
   });
 }
 
 modalWorks();
+
+function createTrashIcon(workId) {
+  const trashIcon = document.createElement("i");
+  trashIcon.classList.add("fa-solid", "fa-trash-can");
+  trashIcon.addEventListener("click", async (e) => {
+    e.preventDefault();
+    if (
+      confirm(
+        "Voulez-vous vraiment supprimer ce projet ?\nCette action est irréversible."
+      )
+    ) {
+      try {
+        await deleteElement(workId);
+        const articleToRemove = trashIcon.parentElement;
+        articleToRemove.remove();
+      } catch (error) {
+        console.error("Erreur lors de la suppression du projet :", error);
+      }
+    }
+  });
+  return trashIcon;
+}
