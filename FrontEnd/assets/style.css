@@ -435,46 +435,20 @@ footer nav ul {
 #modale {
   display: none;
   position: fixed;
+  z-index: 1;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 1000;
-  background-color: rgba(0, 0, 0, 0.25);
+  width: 100%;
+  height: 100%;
   justify-content: center;
   align-items: center;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.3); /* Fond gris opaque */
 }
 
-#contenumodale1,
-#contenuModale2 {
-  background-color: white;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  max-width: 630px;
-  max-height: 688px;
-}
-
-#contenumodale1 #closemodal {
-  cursor: pointer;
-  display: flex;
-  flex-direction: row-reverse;
-  margin-top: 26px;
-  margin-right: 30px;
-  margin-left: 576px;
-  font-size: 20px;
-}
-
-#contenuModale2 #closemodal {
-  cursor: pointer;
-  display: flex;
-  flex-direction: row-reverse;
-  margin-top: 26px;
-  margin-right: 30px;
-  margin-left: 576px;
-  font-size: 20px;
-}
-#contenumodale1 h2 {
+#modale h2 {
   font-family: "Work Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
@@ -482,6 +456,26 @@ footer nav ul {
   color: black;
   display: flex;
   justify-content: center;
+}
+#galleriemodale .fa-trash-can {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 8px;
+  border-radius: 3px;
+  padding: 4px;
+  background-color: rgb(9, 8, 8);
+  color: white;
+  cursor: pointer;
+}
+
+#modalcontent1,
+#modalcontent2 {
+  display: none;
+}
+
+#modalcontent1 {
+  display: flex;
 }
 
 #galleriemodale {
@@ -503,7 +497,7 @@ footer nav ul {
   margin-bottom: 10px;
 }
 
-#contenumodale1 button {
+#modalcontent1 button {
   cursor: pointer;
   font-family: "Syne";
   font-weight: 700;
@@ -518,14 +512,126 @@ footer nav ul {
   padding-bottom: 9px;
 }
 
-#galleriemodale .fa-trash-can {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  font-size: 8px;
-  border-radius: 3px;
-  padding: 4px;
-  background-color: rgb(9, 8, 8);
-  color: white;
+#modalcontent2 {
+  display: none;
+}
+
+#modalcontent1,
+#modalcontent2 {
+  background-color: white;
+  border-radius: 10px;
+  flex-direction: column;
+  max-width: 630px;
+  max-height: 670px;
+}
+
+.icons {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+  margin: 26px 26px 0 26px;
+}
+
+.fa-image {
+  font-size: 68px;
+  color: #b9c5cc;
+}
+
+.picture-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 36px 105px 30px 105px;
+  background-color: #e8f1f6;
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.picture-form img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.picture-form .fa-image {
+  display: flex;
+  justify-content: center;
+  margin: 13px 173px 6px 171px;
+}
+
+.picture-form p {
+  font-size: 10px;
+  display: flex;
+  justify-content: center;
+  font-family: "Work Sans";
+  color: #444444;
+  margin: 7px 0 19px 0;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.imageUpload {
+  display: flex;
+  justify-content: center;
+  border-radius: 50px;
+  background: #cbd6dc;
+  color: #306685;
+  cursor: pointer;
+  margin: 6px 124px 7px 123px;
+  padding: 10px 0 10px 0;
+}
+.category-form {
+  display: flex;
+  flex-direction: column;
+  border-bottom: solid #b3b3b3 1px;
+  margin: 0 105px auto;
+}
+
+.title-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.title-form label {
+  font-size: 14px;
+  margin: 0 0 10px 105px;
+}
+
+.title-form input {
+  margin: 0px 105px 21px 105px;
+  height: 51px;
+  border: none;
+  box-shadow: 0px 4px 14px 0px #00000017;
+}
+
+.category-form label {
+  margin-bottom: 10px;
+}
+
+.category-form #category {
+  height: 51px;
+  background-color: #ffffff;
+  margin-bottom: 47px;
+  border: none;
+  box-shadow: 0px 4px 14px 0px #00000017;
+}
+
+#modalform button {
+  font-family: "syne";
+  border: none;
+  color: #ffffff;
+  background-color: #a7a7a7;
+  width: 237px;
+  margin: 32px 198px 55px;
+  padding: 10px 49px 9px 49px;
+  border-radius: 60px;
+}
+
+#modalform button[type="submit"].valid {
+  background-color: #1d6154;
   cursor: pointer;
 }
