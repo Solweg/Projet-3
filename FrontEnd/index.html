@@ -17,30 +17,24 @@
 
     <meta name="description" content="" />
     <link rel="stylesheet" href="./assets/style.css" />
-    <script src="./assets/works.js" defer></script>
-    <script src="./assets/modale.js" defer></script>
-    <script
-      src="https://kit.fontawesome.com/911193533a.js"
-      crossorigin="anonymous"
-    ></script>
   </head>
 
   <body>
     <!-- Modale -->
-    <div id="modale">
+    <div id="modal">
       <!-- Modale 1  -->
-      <div id="modalcontent1">
+      <div id="modal1">
         <div class="icons">
           <i class="fa-solid fa-arrow-left" style="opacity: 0"></i>
           <i class="fa-solid fa-xmark" id="closemodal1"></i>
         </div>
 
         <h2>Galerie photo</h2>
-        <div id="galleriemodale"></div>
+        <div id="gallerymodal"></div>
         <button id="btn-photo">Ajouter une photo</button>
       </div>
       <!-- Modale 2 -->
-      <div id="modalcontent2">
+      <div id="modal2">
         <div class="icons">
           <i class="fa-solid fa-arrow-left" id="arrowback"></i>
           <i class="fa-solid fa-xmark" id="closemodal2"></i>
@@ -61,7 +55,7 @@
 
             <div class="title-form">
               <label for="Titre">Titre </label>
-              <input type="text" id="Titre" name="Titre" required />
+              <input type="text" id="Title" name="Titre" required />
             </div>
             <div class="category-form">
               <label for="category">Catégorie </label>
@@ -156,5 +150,11 @@
         </ul>
       </nav>
     </footer>
+    <script src="./assets/works.js"></script>
+    <script src="./assets/modale.js"></script>
+    <script
+      src="https://kit.fontawesome.com/911193533a.js"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>

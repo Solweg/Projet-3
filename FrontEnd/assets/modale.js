@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
   const button = document.getElementById("groupedit");
-  const modal = document.getElementById("modale");
-  const modalcontent1 = document.getElementById("modalcontent1");
-  const modalcontent2 = document.getElementById("modalcontent2");
+  const modal = document.getElementById("modal");
+  const modal1 = document.getElementById("modal1");
+  const modal2 = document.getElementById("modal2");
 
   const loginlogout = document.getElementById("loginlogout");
   const ContainerFilters = document.getElementById("ContainerFilters");
@@ -27,10 +27,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Fermeture de la modale:
 
-  const closemodal1 = document.getElementById("closemodal1");
-  const closemodal2 = document.getElementById("closemodal2");
-  // Réinitialiser les champs du formulaire de la modale 1
-  closemodal1.addEventListener("click", () => {
+  const closeModal1 = document.getElementById("closemodal1");
+  const closeModal2 = document.getElementById("closemodal2");
+  // Réinitialiser les champs du formulaire de la modal 1
+  closeModal1.addEventListener("click", () => {
     modal.style.display = "none";
   });
 
@@ -40,16 +40,16 @@ document.addEventListener("DOMContentLoaded", () => {
     categorySelect.value = "";
   }
 
-  closemodal2.addEventListener("click", () => {
+  closeModal2.addEventListener("click", () => {
     modal.style.display = "none";
     resetModalForm();
   });
 
-  modalcontent1.addEventListener("click", (event) => {
+  modal1.addEventListener("click", (event) => {
     event.stopPropagation();
   });
 
-  modalcontent2.addEventListener("click", (event) => {
+  modal2.addEventListener("click", (event) => {
     event.stopPropagation();
   });
 
@@ -61,8 +61,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const AjouterPhoto = document.getElementById("btn-photo");
 
   AjouterPhoto.addEventListener("click", () => {
-    modalcontent1.style.display = "none";
-    modalcontent2.style.display = "flex";
+    modal1.style.display = "none";
+    modal2.style.display = "flex";
   });
 
   button.addEventListener("click", () => {
@@ -71,9 +71,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   button.addEventListener("click", () => {
     // Assurez-vous que la modal 2 est cachée
-    modalcontent2.style.display = "none";
+    modal2.style.display = "none";
     // Affichez la modal 1
-    modalcontent1.style.display = "flex";
+    modal1.style.display = "flex";
     // Affichez la modale principale
     modal.style.display = "flex";
   });
@@ -82,15 +82,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   arrowBack.addEventListener("click", () => {
     // Afficher la modal 1 et cacher la modal 2
-    modalcontent1.style.display = "flex";
-    modalcontent2.style.display = "none";
+    modal1.style.display = "flex";
+    modal2.style.display = "none";
   });
 
   // Insertion de la galerie
   async function modalWorks() {
     const response = await fetch("http://localhost:5678/api/works");
     const works = await response.json();
-    const galleriemodale = document.getElementById("galleriemodale");
+    const gallerymodal = document.getElementById("gallerymodal");
 
     works.forEach((work) => {
       const article = document.createElement("article");
@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const trashIcon = createTrashIcon(work.id);
       article.appendChild(trashIcon);
 
-      galleriemodale.appendChild(article);
+      gallerymodal.appendChild(article);
     });
   }
 

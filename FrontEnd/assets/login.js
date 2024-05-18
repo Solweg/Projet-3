@@ -1,5 +1,4 @@
 const loginUrl = "http://localhost:5678/api/users/login";
-
 const loginForm = document.getElementById("login-form");
 
 loginForm.addEventListener("submit", async (event) => {
