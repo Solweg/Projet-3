@@ -1,13 +1,20 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const button = document.getElementById("groupedit");
-  const modal = document.getElementById("modal");
-  const modal1 = document.getElementById("modal1");
-  const modal2 = document.getElementById("modal2");
-
   const loginlogout = document.getElementById("loginlogout");
   const ContainerFilters = document.getElementById("ContainerFilters");
   const banner = document.getElementById("banner");
   const edit = document.getElementById("groupedit");
+  const button = document.getElementById("groupedit");
+  const AjouterPhoto = document.getElementById("btn-photo");
+  const modal = document.getElementById("modal");
+  const modal1 = document.getElementById("modal1");
+  const categorySelect = document.getElementById("category");
+  const modal2 = document.getElementById("modal2");
+  const imageUpload = document.getElementById("imageUpload");
+  const titleInput = document.getElementById("Title");
+  const submitButton = document.querySelector('button[type="submit"]');
+  const closeModal1 = document.getElementById("closemodal1");
+  const closeModal2 = document.getElementById("closemodal2");
+  const arrowBack = document.getElementById("arrowback");
 
   if (sessionStorage.getItem("token")) {
     loginlogout.textContent = "logout";
@@ -25,10 +32,6 @@ document.addEventListener("DOMContentLoaded", () => {
     edit.style.display = "none";
   }
 
-  // Fermeture de la modale:
-
-  const closeModal1 = document.getElementById("closemodal1");
-  const closeModal2 = document.getElementById("closemodal2");
   // Réinitialiser les champs du formulaire de la modal 1
   closeModal1.addEventListener("click", () => {
     modal.style.display = "none";
@@ -36,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function resetModalForm() {
     imageUpload.value = null;
-    titreInput.value = "";
+    titleInput.value = "";
     categorySelect.value = "";
   }
 
@@ -57,9 +60,6 @@ document.addEventListener("DOMContentLoaded", () => {
     modal.style.display = "none";
   });
 
-  // Afficher la modale 2
-  const AjouterPhoto = document.getElementById("btn-photo");
-
   AjouterPhoto.addEventListener("click", () => {
     modal1.style.display = "none";
     modal2.style.display = "flex";
@@ -77,8 +77,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // Affichez la modale principale
     modal.style.display = "flex";
   });
-  // Retour modale 1:
-  const arrowBack = document.getElementById("arrowback");
 
   arrowBack.addEventListener("click", () => {
     // Afficher la modal 1 et cacher la modal 2
@@ -156,8 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (error) {}
   }
 
-  // fetch les catégories dans les options du formulaire
-  const categorySelect = document.getElementById("category");
+  // fetch les catégories dans les options
 
   function loadCategories() {
     fetch(categoriesUrl)
@@ -178,7 +175,6 @@ document.addEventListener("DOMContentLoaded", () => {
   loadCategories();
 
   // miniature image
-  const imageUpload = document.getElementById("imageUpload");
 
   imageUpload.addEventListener("change", function (event) {
     const file = event.target.files[0];
@@ -199,32 +195,28 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Récupérer les éléments du formulaire
-  const titreInput = document.getElementById("Titre");
-  const submitButton = document.querySelector('button[type="submit"]');
-
-  // Fonction pour vérifier si tous les champs sont remplis
   function checkForm() {
     const imageFilled = imageUpload.files.length > 0;
-    const titreFilled = titreInput.value.trim() !== "";
-    const categoryFilled = categorySelect.value.trim() !== "";
+    const titleFilled = titleInput.value.trim() !== "";
+    const categoryFilled = categorySelect.value !== "";
 
     // Vérifier si tous les champs sont remplis
-    if (imageFilled && titreFilled && categoryFilled) {
-      // Activer le style du bouton "Valider"
+    if (imageFilled && titleFilled && categoryFilled) {
       submitButton.classList.add("valid");
       submitButton.style.cursor = "pointer";
       submitButton.disabled = false;
     } else {
-      // Désactiver le style du bouton "Valider"
       submitButton.classList.remove("valid");
       submitButton.style.cursor = "default";
       submitButton.disabled = true;
     }
   }
 
-  // Écouter les événements de saisie dans les champs du formulaire
+  // Écouter les événements de saisie
   imageUpload.addEventListener("change", checkForm);
-  titreInput.addEventListener("input", checkForm);
+  titleInput.addEventListener("input", checkForm);
   categorySelect.addEventListener("change", checkForm);
+
+  // Initialiser le bonton
+  checkForm();
 });
