@@ -33,6 +33,7 @@
         <div id="gallerymodal"></div>
         <button id="btn-photo">Ajouter une photo</button>
       </div>
+
       <!-- Modale 2 -->
       <div id="modal2">
         <div class="icons">
@@ -45,25 +46,26 @@
           <form action="" id="modalform">
             <div class="picture-form">
               <i class="fa-regular fa-image"></i>
-
-              <label for="imageUpload">
-                <span class="imageUpload">+ Ajouter photo</span>
-                <input type="file" id="imageUpload" />
+              <label for="imageUrl">
+                <span class="imageUrl">+ Ajouter photo</span>
+                <input type="file" id="imageUrl" />
               </label>
               <p>jpg, png: 4mo max</p>
             </div>
 
             <div class="title-form">
-              <label for="Titre">Titre </label>
-              <input type="text" id="Title" name="Titre" required />
+              <label for="title">Titre </label>
+              <input type="text" id="title" name="Titre" required />
             </div>
+
             <div class="category-form">
-              <label for="category">Catégorie </label>
-              <select id="category" name="category" required>
+              <label for="categoryId">Catégorie </label>
+              <select id="categoryId" name="categoryId" required>
                 <option value="" disabled selected></option>
               </select>
             </div>
-            <button type="submit">Valider</button>
+
+            <button type="submit" id="submit">Valider</button>
           </form>
         </div>
       </div>

@@ -27,9 +27,16 @@ loginForm.addEventListener("submit", async (event) => {
     } else {
       const errorData = await response.json();
       if (response.status === 404 && errorData.message === "user not found") {
-        alert("Erreur dans l’identifiant ou le mot de passe.");
+        // const errorMessage = document.getElementById("errormessage");
+        // errorMessage.textContent =
+        //   "Erreur dans l’identifiant ou le mot de passe.";
+        // alert("Erreur dans l’identifiant ou le mot de passe.");
       } else {
-        alert("Une erreur s'est produite. Veuillez réessayer plus tard.");
+        const errorMessage = document.getElementById("errormessage");
+        errorMessage.textContent =
+          "Erreur dans l’identifiant ou le mot de passe.";
+
+        // alert("Une erreur s'est produite. Veuillez réessayer plus tard.");
       }
     }
   } catch (error) {
