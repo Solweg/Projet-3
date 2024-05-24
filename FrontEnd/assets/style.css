@@ -99,7 +99,6 @@ details,
 figcaption,
 figure,
 footer,
-header,
 hgroup,
 menu,
 nav,
@@ -145,13 +144,13 @@ body {
   background-color: #fffef8;
 }
 
-header {
-  display: flex;
-  justify-content: space-between;
+section {
   margin: 50px 0;
 }
 
-section {
+header {
+  display: flex;
+  justify-content: space-between;
   margin: 50px 0;
 }
 
@@ -162,6 +161,7 @@ h1 {
   font-size: 22px;
   font-weight: 800;
   color: #b1663c;
+  padding: 0;
 }
 
 h1 > span {
@@ -176,6 +176,10 @@ h2 {
   font-size: 30px;
   color: #1d6154;
 }
+.logoinsta {
+  width: 20px;
+  height: auto;
+}
 
 nav ul {
   display: flex;
@@ -184,8 +188,8 @@ nav ul {
 }
 
 nav li {
-  padding: 0 10px;
   font-size: 1.2em;
+  margin-right: 44px;
 }
 
 li:hover {
@@ -226,12 +230,13 @@ a:hover {
 }
 
 #introduction p {
-  margin-bottom: 0.5em;
+  margin-bottom: 1.5em;
+  font-size: 14px;
+  margin-right: 145px;
 }
 
 #portfolio h2 {
   text-align: center;
-  margin-bottom: 1em;
 }
 
 .gallery {
@@ -299,7 +304,7 @@ footer nav ul {
   margin: 2em;
 }
 
-/**Filters***************************************/
+/**********************************FILTRES***************************************/
 
 .ContainerFilters {
   display: flex;
@@ -317,7 +322,10 @@ footer nav ul {
   font-size: 16px;
   padding-top: 9px;
   padding-bottom: 9px;
+  padding-left: 9px;
+  padding-right: 11px;
   margin-right: 10px;
+  min-width: 100px;
 }
 
 .ContainerFilters button.button-active {
@@ -411,7 +419,7 @@ footer nav ul {
   display: flex;
   justify-content: center;
   gap: 31px;
-  margin-bottom: 92px;
+  margin-bottom: 51px;
   margin-top: 139px;
 }
 

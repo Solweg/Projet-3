@@ -1,12 +1,16 @@
+// Définition des adresses:
+
 const worksUrl = "http://localhost:5678/api/works";
 const categoriesUrl = "http://localhost:5678/api/categories";
+
+// Fonction asynchrone d'appel de l'API:
 
 async function callApi(url) {
   try {
     const response = await fetch(url);
     const works = await response.json();
-    afficherElements(works);
-    afficherCategories(works);
+    showElements(works);
+    showCategories(works);
   } catch (error) {
     console.log("call api error: ", error);
   }
@@ -14,9 +18,9 @@ async function callApi(url) {
 
 callApi(worksUrl);
 
-/* catégories*/
+//Affichage des élèments par catégories:
 
-function afficherElements(elements) {
+function showElements(elements) {
   const gallery = document.querySelector(".gallery");
   gallery.innerHTML = "";
   elements.forEach((element) => {
@@ -32,9 +36,12 @@ function afficherElements(elements) {
   });
 }
 
+// Requête HTTP GET vers l'URL des catégories:
+
 async function getCategories() {
   try {
     const response = await fetch(categoriesUrl);
+    // retourne les données au format JSON:
     const data = await response.json();
     return data;
   } catch (error) {
@@ -42,21 +49,22 @@ async function getCategories() {
   }
 }
 
-async function afficherCategories(works) {
+// Affichage des catégories,
+
+async function showCategories(works) {
   const categories = await getCategories();
   const filtersContainer = document.querySelector(".ContainerFilters");
+  // réation du filtre "tous":
   filtersContainer.innerHTML = "";
   const buttonTous = document.createElement("button");
   buttonTous.textContent = "Tous";
-
   buttonTous.onclick = () => {
-    afficherElements(works);
+    showElements(works);
     filtersContainer.querySelectorAll("button").forEach((button) => {
       button.classList.remove("button-active");
     });
     buttonTous.classList.add("button-active");
   };
-
   filtersContainer.appendChild(buttonTous);
   if (categories) {
     categories.forEach((category) => {
@@ -64,7 +72,7 @@ async function afficherCategories(works) {
       button.textContent = category.name;
       filtersContainer.appendChild(button);
       button.addEventListener("click", async function () {
-        filtrerParCategorie(works, category.name);
+        FilterByCategory(works, category.name);
         filtersContainer.querySelectorAll("button").forEach((button) => {
           button.classList.remove("button-active");
         });
@@ -74,9 +82,11 @@ async function afficherCategories(works) {
   }
 }
 
-function filtrerParCategorie(works, categoryName) {
+// Fonction qui filtre les projets:
+
+function FilterByCategory(works, categoryName) {
   const worksFilters = works.filter(
     (work) => work.category.name === categoryName
   );
-  afficherElements(worksFilters);
+  showElements(worksFilters);
 }
