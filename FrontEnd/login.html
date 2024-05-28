@@ -15,33 +15,46 @@
     <meta name="description" content="" />
   </head>
   <body>
-    <header>
+    <header class="wrapper">
       <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
       <nav>
         <ul>
           <li><a href="index.html">projets</a></li>
           <li>contact</li>
-          <li><a src="">login</a></li>
-          <li><img src="./assets/icons/instagram.png" alt="Instagram" /></li>
+          <li><a src="" class="login">login</a></li>
+          <li>
+            <img
+              src="./assets/icons/instagram.png"
+              alt="Instagram"
+              class="logoinsta"
+            />
+          </li>
         </ul>
       </nav>
     </header>
-    <section id="login-form">
+
+    <!-------- Formulaires de connexion --------->
+
+    <main id="login-form">
       <h2>Log In</h2>
       <form method="post" action="http://localhost:5678/api/users/login">
-        <label for="email">E-mail</label>
-        <input type="email" name="email" id="email" />
-        <label for="password">Mot de passe</label>
-        <input type="password" name="password" id="password" />
-        <p id="errormessage"></p>
+        <div>
+          <label for="email">E-mail</label>
+          <input type="email" name="email" id="email" />
+          <label for="password">Mot de passe</label>
+          <input type="password" name="password" id="password" />
+          <p id="errormessage"></p>
+        </div>
+
         <input type="submit" value="Se connecter" />
         <a href="#">Mot de passe oublié</a>
       </form>
-    </section>
+    </main>
+
     <footer>
       <nav>
         <ul>
-          <li>Mentions Légales</li>
+          <li class="footer">Mentions Légales</li>
         </ul>
       </nav>
     </footer>

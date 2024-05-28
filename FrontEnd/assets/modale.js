@@ -1,13 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
   const token = sessionStorage.getItem("token");
-  // sessionStorage.setItem("token", data.token);
-
   const loginlogout = document.getElementById("loginlogout");
   const ContainerFilters = document.getElementById("ContainerFilters");
   const banner = document.getElementById("banner");
   const edit = document.getElementById("groupedit");
   const button = document.getElementById("groupedit");
-  const AjouterPhoto = document.getElementById("btn-photo");
+  const AddImage = document.getElementById("btn-photo");
   const modal = document.getElementById("modal");
   const modal1 = document.getElementById("modal1");
   const categoryIdSelect = document.getElementById("categoryId");
@@ -20,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const arrowBack = document.getElementById("arrowback");
   const modalForm = document.getElementById("modalform");
 
+  // Vérification du sessionStorage :
   if (sessionStorage.getItem("token")) {
     loginlogout.textContent = "logout";
     ContainerFilters.style.display = "none";
@@ -36,11 +35,13 @@ document.addEventListener("DOMContentLoaded", () => {
     edit.style.display = "none";
   }
 
-  //   // Réinitialiser les champs du formulaire de la modal 1
+  // Fermeture de la modal 1 :
+
   closeModal1.addEventListener("click", () => {
     modal.style.display = "none";
   });
 
+  // Réinitialisation des champs du formulaire dans la modal 2 :
   function resetModalForm() {
     imageUrl.value = null;
     titleInput.value = "";
@@ -52,6 +53,8 @@ document.addEventListener("DOMContentLoaded", () => {
     resetModalForm();
   });
 
+  // Prévention de la propagation des événements de clic :
+
   modal1.addEventListener("click", (event) => {
     event.stopPropagation();
   });
@@ -60,35 +63,35 @@ document.addEventListener("DOMContentLoaded", () => {
     event.stopPropagation();
   });
 
+  // Fermeture en cliquant en dehors :
   modal.addEventListener("click", () => {
     modal.style.display = "none";
   });
 
-  AjouterPhoto.addEventListener("click", () => {
+  // Affichage de la modale 2 :
+  AddImage.addEventListener("click", () => {
     modal1.style.display = "none";
     modal2.style.display = "flex";
   });
 
+  // Affichage de la modale 1 :
   button.addEventListener("click", () => {
     modal.style.display = "flex";
   });
 
   button.addEventListener("click", () => {
-    //     // Assurez-vous que la modal 2 est cachée
     modal2.style.display = "none";
-    //     // Affichez la modal 1
     modal1.style.display = "flex";
-    //     // Affichez la modale principale
     modal.style.display = "flex";
   });
 
+  // Retour à la modale 1 :
   arrowBack.addEventListener("click", () => {
-    //     // Afficher la modal 1 et cacher la modal 2
     modal1.style.display = "flex";
     modal2.style.display = "none";
   });
 
-  //   // Insertion de la galerie
+  // Insertion de la galerie :
   async function modalWorks() {
     const response = await fetch("http://localhost:5678/api/works");
     const works = await response.json();
@@ -108,7 +111,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  function updateGallery() {
+    window.location.reload();
+  }
   modalWorks();
+
+  // Création de la fonction pour supprimer le travail correspondant.
 
   function createTrashIcon(workId) {
     const trashIcon = document.createElement("i");
@@ -120,6 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
           await deleteElement(workId);
           const articleToRemove = trashIcon.parentElement;
           articleToRemove.remove();
+          updateGallery();
         } catch (error) {
           console.error("Erreur lors de la suppression", error);
         }
@@ -154,7 +163,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (error) {}
   }
 
-  //   // fetch les catégories dans les options
+  // fetch les catégories dans les options
 
   function loadCategories() {
     fetch(categoriesUrl)
@@ -174,7 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   loadCategories();
 
-  //   // miniature image
+  //  Prévisualisation de l'image :
 
   imageUrl.addEventListener("change", function (event) {
     const file = event.target.files[0];
@@ -186,7 +195,8 @@ document.addEventListener("DOMContentLoaded", () => {
       imageElement.alt = "Image miniature";
 
       const pictureform = document.querySelector(".picture-form");
-      pictureform.innerHTML = ""; // Effacer le contenu existant
+      pictureform.innerHTML = "";
+      // Effacer le contenu existant
       pictureform.appendChild(imageElement);
 
       imageElement.onload = function () {
@@ -200,7 +210,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const titleFilled = titleInput.value.trim() !== "";
     const categoryFilled = categoryIdSelect.value !== "";
 
-    //     // Vérifier si tous les champs sont remplis
+    // Vérifier si tous les champs sont remplis
     if (imageFilled && titleFilled && categoryFilled) {
       submitButton.classList.add("valid");
       submitButton.style.cursor = "pointer";
@@ -215,6 +225,7 @@ document.addEventListener("DOMContentLoaded", () => {
   imageUrl.addEventListener("input", checkForm);
   titleInput.addEventListener("input", checkForm);
   categoryIdSelect.addEventListener("change", checkForm);
+
   // Écouteur d'événement pour le formulaire
   document.getElementById("submit").addEventListener("click", function (event) {
     event.preventDefault();
@@ -238,8 +249,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .then((response) => {
         if (response.ok) {
           console.log("Photo envoyée avec succès");
-          window.updateGallery();
-          removePreviewImage();
+          updateGallery();
           resetModalForm();
 
           window.alert("Photo ajoutée à la galerie !");
