@@ -1,4 +1,4 @@
-// Définition des adresses:
+// Définition des adresses de l’API pour works et categories:
 
 const worksUrl = "http://localhost:5678/api/works";
 const categoriesUrl = "http://localhost:5678/api/categories";
@@ -18,7 +18,7 @@ async function callApi(url) {
 
 callApi(worksUrl);
 
-//Affichage des élèments par catégories:
+//Affichage des élèments:
 
 function showElements(elements) {
   const gallery = document.querySelector(".gallery");
@@ -49,12 +49,13 @@ async function getCategories() {
   }
 }
 
-// Affichage des catégories,
+// Affichage des catégories
 
 async function showCategories(works) {
   const categories = await getCategories();
   const filtersContainer = document.querySelector(".ContainerFilters");
-  // réation du filtre "tous":
+
+  // réalisation du filtre "tous":
   filtersContainer.innerHTML = "";
   const buttonTous = document.createElement("button");
   buttonTous.textContent = "Tous";
@@ -82,7 +83,7 @@ async function showCategories(works) {
   }
 }
 
-// Fonction qui filtre les projets:
+// Filtre les projets:
 
 function FilterByCategory(works, categoryName) {
   const worksFilters = works.filter(

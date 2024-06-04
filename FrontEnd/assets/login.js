@@ -4,8 +4,6 @@ const loginUrl = "http://localhost:5678/api/users/login";
 const loginForm = document.getElementById("login-form");
 
 loginForm.addEventListener("submit", async (event) => {
-  // empêche le rechargement de la page
-
   event.preventDefault();
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
@@ -13,6 +11,7 @@ loginForm.addEventListener("submit", async (event) => {
     email: email,
     password: password,
   };
+
   // Envoi de la requête de connexion à l'API :
   try {
     const response = await fetch(loginUrl, {

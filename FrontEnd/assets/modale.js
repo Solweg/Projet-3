@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   modalWorks();
 
-  // Création de la fonction pour supprimer le travail correspondant.
+  // fonction pour supprimer le travail correspondant.
 
   function createTrashIcon(workId) {
     const trashIcon = document.createElement("i");
@@ -128,7 +128,6 @@ document.addEventListener("DOMContentLoaded", () => {
           await deleteElement(workId);
           const articleToRemove = trashIcon.parentElement;
           articleToRemove.remove();
-          updateGallery();
         } catch (error) {
           console.error("Erreur lors de la suppression", error);
         }
@@ -249,7 +248,6 @@ document.addEventListener("DOMContentLoaded", () => {
       .then((response) => {
         if (response.ok) {
           console.log("Photo envoyée avec succès");
-          updateGallery();
           resetModalForm();
 
           window.alert("Photo ajoutée à la galerie !");
