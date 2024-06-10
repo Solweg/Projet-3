@@ -241,6 +241,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const file = event.target.files[0];
     console.log("Image file selected");
 
+    if (file.size > 4 * 1024 * 1024) {
+      // 4 Mo en octets
+      alert("La taille du fichier ne doit pas dépasser 4 Mo.");
+      resetModalForm();
+      return;
+    }
+
     if (file) {
       const imageURL = URL.createObjectURL(file);
       const imageElement = document.createElement("img");
