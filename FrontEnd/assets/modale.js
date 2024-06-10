@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const modal1 = document.getElementById("modal1");
   const categoryIdSelect = document.getElementById("categoryId");
   const modal2 = document.getElementById("modal2");
-  const imageUrl = document.getElementById("imageUrl");
+  let imageUrl = document.getElementById("imageUrl");
   const titleInput = document.getElementById("title");
   const submitButton = document.querySelector('button[type="submit"]');
   const closeModal1 = document.getElementById("closemodal1");
@@ -49,6 +49,18 @@ document.addEventListener("DOMContentLoaded", () => {
     imageUrl.value = null;
     titleInput.value = "";
     categoryIdSelect.value = "";
+    const pictureform = document.querySelector(".picture-form");
+    pictureform.innerHTML = `
+      <i class="fa-regular fa-image"></i>
+      <label for="imageUrl">
+        <span class="imageUrl">+ Ajouter photo</span>
+        <input type="file" id="imageUrl" />
+      </label>
+      <p>jpg, png: 4mo max</p>
+    `;
+    imageUrl = document.getElementById("imageUrl"); // Re-obtain reference to the new input
+    imageUrl.addEventListener("change", handleImageChange); // Reattach event listener
+    checkForm(); // Mettre à jour l'état du bouton de soumission
   }
 
   closeModal2.addEventListener("click", (e) => {
@@ -132,7 +144,30 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  function updateMainGallery() {
+    fetch("http://localhost:5678/api/works")
+      .then((response) => response.json())
+      .then((works) => {
+        const gallery = document.querySelector(".gallery");
+        gallery.innerHTML = "";
+        works.forEach((work) => {
+          const figureElement = document.createElement("figure");
+          const imageElement = document.createElement("img");
+          imageElement.src = work.imageUrl;
+          imageElement.alt = work.title;
+          const titleElement = document.createElement("figcaption");
+          titleElement.innerText = work.title;
+          figureElement.appendChild(imageElement);
+          figureElement.appendChild(titleElement);
+          gallery.appendChild(figureElement);
+        });
+        console.log("Main gallery updated with works");
+      })
+      .catch((error) => console.error("Error updating main gallery:", error));
+  }
+
   modalWorks();
+  updateMainGallery();
 
   function createTrashIcon(workId) {
     const trashIcon = document.createElement("i");
@@ -145,6 +180,7 @@ document.addEventListener("DOMContentLoaded", () => {
           await deleteElement(workId);
           console.log(`Work with ID: ${workId} deleted`);
           modalWorks();
+          updateMainGallery();
         } catch (error) {
           console.error("Erreur lors de la suppression", error);
         }
@@ -201,7 +237,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   loadCategories();
 
-  imageUrl.addEventListener("change", function (event) {
+  function handleImageChange(event) {
     const file = event.target.files[0];
     console.log("Image file selected");
 
@@ -220,7 +256,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       console.log("Image preview updated");
     }
-  });
+  }
+
+  imageUrl.addEventListener("change", handleImageChange);
 
   function checkForm() {
     const imageFilled = imageUrl.files.length > 0;
@@ -271,6 +309,7 @@ document.addEventListener("DOMContentLoaded", () => {
           console.log("modal2 display: none");
           console.log("modal1 display: flex");
           modalWorks();
+          updateMainGallery();
           window.alert("Photo ajoutée à la galerie !");
         } else {
           console.error("Échec de l'envoi de la photo");

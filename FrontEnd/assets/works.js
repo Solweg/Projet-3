@@ -50,6 +50,7 @@ async function showCategories(works) {
   filtersContainer.innerHTML = "";
   const buttonTous = document.createElement("button");
   buttonTous.textContent = "Tous";
+  buttonTous.classList.add("button-active"); // Ajouter la classe active par défaut
   buttonTous.onclick = () => {
     console.log("Filter: Tous");
     showElements(works);
