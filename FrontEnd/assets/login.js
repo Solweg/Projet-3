@@ -31,6 +31,7 @@ loginForm.addEventListener("submit", async (event) => {
       console.log("Redirection...");
       window.location.href = "index.html";
     } else {
+      
       // Gestion des erreurs
 
       const errorData = await response.json();

@@ -1,12 +1,9 @@
-// Définition des adresses de l’API pour works et categories:
-
 const worksUrl = "http://localhost:5678/api/works";
 const categoriesUrl = "http://localhost:5678/api/categories";
 
-// Fonction asynchrone d'appel de l'API:
-
 async function callApi(url) {
   try {
+    console.log("Calling API:", url);
     const response = await fetch(url);
     const works = await response.json();
     showElements(works);
@@ -18,9 +15,8 @@ async function callApi(url) {
 
 callApi(worksUrl);
 
-//Affichage des élèments:
-
 function showElements(elements) {
+  console.log("Showing elements");
   const gallery = document.querySelector(".gallery");
   gallery.innerHTML = "";
   elements.forEach((element) => {
@@ -36,12 +32,10 @@ function showElements(elements) {
   });
 }
 
-// Requête HTTP GET vers l'URL des catégories:
-
 async function getCategories() {
   try {
+    console.log("Fetching categories");
     const response = await fetch(categoriesUrl);
-    // retourne les données au format JSON:
     const data = await response.json();
     return data;
   } catch (error) {
@@ -49,17 +43,15 @@ async function getCategories() {
   }
 }
 
-// Affichage des catégories
-
 async function showCategories(works) {
   const categories = await getCategories();
   const filtersContainer = document.querySelector(".ContainerFilters");
 
-  // réalisation du filtre "tous":
   filtersContainer.innerHTML = "";
   const buttonTous = document.createElement("button");
   buttonTous.textContent = "Tous";
   buttonTous.onclick = () => {
+    console.log("Filter: Tous");
     showElements(works);
     filtersContainer.querySelectorAll("button").forEach((button) => {
       button.classList.remove("button-active");
@@ -71,21 +63,21 @@ async function showCategories(works) {
     categories.forEach((category) => {
       const button = document.createElement("button");
       button.textContent = category.name;
-      filtersContainer.appendChild(button);
-      button.addEventListener("click", async function () {
+      button.addEventListener("click", () => {
+        console.log("Filter:", category.name);
         FilterByCategory(works, category.name);
         filtersContainer.querySelectorAll("button").forEach((button) => {
           button.classList.remove("button-active");
         });
         button.classList.add("button-active");
       });
+      filtersContainer.appendChild(button);
     });
   }
 }
 
-// Filtre les projets:
-
 function FilterByCategory(works, categoryName) {
+  console.log("Filtering by category:", categoryName);
   const worksFilters = works.filter(
     (work) => work.category.name === categoryName
   );

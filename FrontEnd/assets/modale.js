@@ -1,10 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
+  console.log("DOMContentLoaded: script started");
+
   const token = sessionStorage.getItem("token");
   const loginlogout = document.getElementById("loginlogout");
   const ContainerFilters = document.getElementById("ContainerFilters");
   const banner = document.getElementById("banner");
   const edit = document.getElementById("groupedit");
-  const button = document.getElementById("groupedit");
   const AddImage = document.getElementById("btn-photo");
   const modal = document.getElementById("modal");
   const modal1 = document.getElementById("modal1");
@@ -18,8 +19,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const arrowBack = document.getElementById("arrowback");
   const modalForm = document.getElementById("modalform");
 
-  // Vérification du sessionStorage :
-  if (sessionStorage.getItem("token")) {
+  if (token) {
+    console.log("Token found");
     loginlogout.textContent = "logout";
     ContainerFilters.style.display = "none";
     banner.style.display = "block";
@@ -27,107 +28,123 @@ document.addEventListener("DOMContentLoaded", () => {
 
     loginlogout.addEventListener("click", (e) => {
       e.preventDefault();
+      console.log("Logging out");
       sessionStorage.clear();
       window.location.reload();
     });
   } else {
+    console.log("No token found");
     banner.style.display = "none";
     edit.style.display = "none";
   }
 
-  // Fermeture de la modal 1 :
-
-  closeModal1.addEventListener("click", () => {
+  closeModal1.addEventListener("click", (e) => {
+    e.preventDefault();
+    console.log("Closing modal 1");
     modal.style.display = "none";
   });
 
-  // Réinitialisation des champs du formulaire dans la modal 2 :
   function resetModalForm() {
+    console.log("Resetting modal form");
     imageUrl.value = null;
     titleInput.value = "";
     categoryIdSelect.value = "";
   }
 
-  closeModal2.addEventListener("click", () => {
-    modal.style.display = "none";
+  closeModal2.addEventListener("click", (e) => {
+    e.preventDefault();
+    console.log("Closing modal 2");
+    modal2.style.display = "none";
     resetModalForm();
   });
 
-  // Prévention de la propagation des événements de clic :
-
   modal1.addEventListener("click", (event) => {
     event.stopPropagation();
+    console.log("Clicked inside modal1");
   });
 
   modal2.addEventListener("click", (event) => {
     event.stopPropagation();
+    console.log("Clicked inside modal2");
   });
 
-  // Fermeture en cliquant en dehors :
-  modal.addEventListener("click", () => {
-    modal.style.display = "none";
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal) {
+      console.log("Clicked outside modal, closing modal");
+      modal.style.display = "none";
+    }
   });
 
-  // Affichage de la modale 2 :
-  AddImage.addEventListener("click", () => {
+  AddImage.addEventListener("click", (e) => {
+    e.preventDefault();
+    console.log("Opening modal 2");
     modal1.style.display = "none";
     modal2.style.display = "flex";
+    console.log("modal1 display: none");
+    console.log("modal2 display: flex");
   });
 
-  // Affichage de la modale 1 :
-  button.addEventListener("click", () => {
+  edit.addEventListener("click", (e) => {
+    e.preventDefault();
+    console.log("Opening modal 1");
     modal.style.display = "flex";
-  });
-
-  button.addEventListener("click", () => {
-    modal2.style.display = "none";
-    modal1.style.display = "flex";
-    modal.style.display = "flex";
-  });
-
-  // Retour à la modale 1 :
-  arrowBack.addEventListener("click", () => {
     modal1.style.display = "flex";
     modal2.style.display = "none";
+    console.log("modal display: flex");
+    console.log("modal1 display: flex");
+    console.log("modal2 display: none");
   });
 
-  // Insertion de la galerie :
+  arrowBack.addEventListener("click", (e) => {
+    e.preventDefault();
+    console.log("Returning to modal 1 from modal 2");
+    modal1.style.display = "flex";
+    modal2.style.display = "none";
+    console.log("modal1 display: flex");
+    console.log("modal2 display: none");
+  });
+
   async function modalWorks() {
-    const response = await fetch("http://localhost:5678/api/works");
-    const works = await response.json();
-    const gallerymodal = document.getElementById("gallerymodal");
+    try {
+      console.log("Fetching works");
+      const response = await fetch("http://localhost:5678/api/works");
+      const works = await response.json();
+      const gallerymodal = document.getElementById("gallerymodal");
 
-    works.forEach((work) => {
-      const article = document.createElement("article");
-      article.setAttribute("data-work-id", work.id);
-      const img = document.createElement("img");
-      img.src = work.imageUrl;
-      article.appendChild(img);
+      gallerymodal.innerHTML = "";
 
-      const trashIcon = createTrashIcon(work.id);
-      article.appendChild(trashIcon);
+      works.forEach((work) => {
+        const article = document.createElement("article");
+        article.setAttribute("data-work-id", work.id);
+        const img = document.createElement("img");
+        img.src = work.imageUrl;
+        article.appendChild(img);
 
-      gallerymodal.appendChild(article);
-    });
+        const trashIcon = createTrashIcon(work.id);
+        article.appendChild(trashIcon);
+
+        gallerymodal.appendChild(article);
+      });
+
+      console.log("Gallery modal updated with works");
+    } catch (error) {
+      console.error("Error fetching works:", error);
+    }
   }
 
-  function updateGallery() {
-    window.location.reload();
-  }
   modalWorks();
-
-  // fonction pour supprimer le travail correspondant.
 
   function createTrashIcon(workId) {
     const trashIcon = document.createElement("i");
     trashIcon.classList.add("fa-solid", "fa-trash-can");
     trashIcon.addEventListener("click", async (e) => {
       e.preventDefault();
+      console.log(`Attempting to delete work with ID: ${workId}`);
       if (confirm("Voulez-vous vraiment supprimer ce projet?")) {
         try {
           await deleteElement(workId);
-          const articleToRemove = trashIcon.parentElement;
-          articleToRemove.remove();
+          console.log(`Work with ID: ${workId} deleted`);
+          modalWorks();
         } catch (error) {
           console.error("Erreur lors de la suppression", error);
         }
@@ -141,6 +158,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const token = sessionStorage.getItem("token");
 
       if (!token) {
+        console.log("No token found, cannot delete element");
         return;
       }
 
@@ -156,14 +174,14 @@ document.addEventListener("DOMContentLoaded", () => {
       );
 
       if (!response.ok) {
-        if (response.status === 401) {
-        }
+        console.error("Failed to delete work", response.status);
       }
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error deleting element", error);
+    }
   }
 
-  // fetch les catégories dans les options
-
+  const categoriesUrl = "http://localhost:5678/api/categories";
   function loadCategories() {
     fetch(categoriesUrl)
       .then((response) => response.json())
@@ -173,6 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
           option.value = category.id;
           option.textContent = category.name;
           categoryIdSelect.appendChild(option);
+          console.log(`Loaded category: ${category.name}`);
         });
       })
       .catch((error) => {
@@ -182,10 +201,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   loadCategories();
 
-  //  Prévisualisation de l'image :
-
   imageUrl.addEventListener("change", function (event) {
     const file = event.target.files[0];
+    console.log("Image file selected");
 
     if (file) {
       const imageURL = URL.createObjectURL(file);
@@ -195,12 +213,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const pictureform = document.querySelector(".picture-form");
       pictureform.innerHTML = "";
-      // Effacer le contenu existant
       pictureform.appendChild(imageElement);
-
       imageElement.onload = function () {
         URL.revokeObjectURL(imageURL);
       };
+
+      console.log("Image preview updated");
     }
   });
 
@@ -209,15 +227,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const titleFilled = titleInput.value.trim() !== "";
     const categoryFilled = categoryIdSelect.value !== "";
 
-    // Vérifier si tous les champs sont remplis
     if (imageFilled && titleFilled && categoryFilled) {
       submitButton.classList.add("valid");
       submitButton.style.cursor = "pointer";
       submitButton.disabled = false;
+      console.log("Form is valid");
     } else {
       submitButton.classList.remove("valid");
       submitButton.style.cursor = "default";
       submitButton.disabled = true;
+      console.log("Form is invalid");
     }
   }
 
@@ -225,9 +244,9 @@ document.addEventListener("DOMContentLoaded", () => {
   titleInput.addEventListener("input", checkForm);
   categoryIdSelect.addEventListener("change", checkForm);
 
-  // Écouteur d'événement pour le formulaire
-  document.getElementById("submit").addEventListener("click", function (event) {
+  modalForm.addEventListener("submit", function (event) {
     event.preventDefault();
+    console.log("Form submitted");
 
     const endPoint = "http://localhost:5678/api/works";
     const formData = new FormData();
@@ -235,8 +254,6 @@ document.addEventListener("DOMContentLoaded", () => {
     formData.append("image", imageUrl.files[0]);
     formData.append("title", titleInput.value);
     formData.append("category", categoryIdSelect.value);
-
-    console.log(formData);
 
     fetch(endPoint, {
       method: "POST",
@@ -249,7 +266,11 @@ document.addEventListener("DOMContentLoaded", () => {
         if (response.ok) {
           console.log("Photo envoyée avec succès");
           resetModalForm();
-
+          modal2.style.display = "none";
+          modal1.style.display = "flex";
+          console.log("modal2 display: none");
+          console.log("modal1 display: flex");
+          modalWorks();
           window.alert("Photo ajoutée à la galerie !");
         } else {
           console.error("Échec de l'envoi de la photo");
